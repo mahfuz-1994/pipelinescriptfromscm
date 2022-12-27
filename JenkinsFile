@@ -1,0 +1,30 @@
+def callAPI() {
+   echo 'Within function'
+   
+   def body_data = """"{
+                        "name": "morpheus",
+                        "job": "leader"
+                    }"""
+     
+   def url = 'https://reqres.in/api/users'
+   def response = httpRequest url: url, acceptType: 'APPLICATION_JSON',
+    contentType: 'APPLICATION_JSON',
+    httpMode: 'POST',
+    requestBody: body_data,
+    consoleLogResponseBody: true
+    
+    print(response)   
+ }
+ 
+ pipeline{
+     agent any
+     stages{
+         stage('API')
+         {
+             steps{
+             echo 'Hello'
+             callAPI()
+             }
+         }
+     }
+ }
